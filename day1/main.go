@@ -16,4 +16,5 @@ func main() {
 	name = "小明"
 	age = 18
 	isOk = true
+
 }
