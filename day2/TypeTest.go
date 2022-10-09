@@ -7,6 +7,13 @@ type Circle struct {
 	radius float64
 }
 
+type Books struct {
+	title   string
+	author  string
+	subject string
+	book_id int
+}
+
 // 该 method 属于 Circle 类型对象中的方法
 func (c Circle) getArea() float64 {
 	//c.radius 即为 Circle 类型对象中的属性
@@ -17,4 +24,7 @@ func main() {
 	var c1 Circle
 	c1.radius = 10.00
 	fmt.Println("圆的面积 = ", c1.getArea())
+
+	// 创建一个新的结构体
+	fmt.Println(Books{"Go 语言", "www.runoob.com", "Go 语言教程", 6495407})
 }
