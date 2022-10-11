@@ -8,8 +8,7 @@ type person struct {
 }
 
 /*
-*
-对象的方法
+对象的方法 前面的参数表示调用方是哪个
 */
 func (p person) getName() {
 	fmt.Println(p.Name)
