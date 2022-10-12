@@ -6,6 +6,10 @@ import (
 	"os"
 )
 
+/*
+*
+写入文件
+*/
 func main() {
 	fileObj, err := os.OpenFile("./main.go", os.O_APPEND, 0666)
 	if err != nil {

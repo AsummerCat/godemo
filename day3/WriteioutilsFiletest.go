@@ -5,6 +5,10 @@ import (
 	"io/ioutil"
 )
 
+/*
+*
+文件工具 写入字符串
+*/
 func main() {
 	str := "输入的字符串"
 	err := ioutil.WriteFile("./xx.txt", []byte(str), 0666)

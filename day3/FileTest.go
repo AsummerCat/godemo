@@ -6,6 +6,10 @@ import (
 	"os"
 )
 
+/*
+*
+打开文件读取字节
+*/
 func main() {
 	//打开文件
 	file, err := os.Open("./main.go")

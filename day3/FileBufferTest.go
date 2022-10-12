@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+/*
+*
+文件缓冲流
+*/
 func main() {
 	//打开文件
 	file, err := os.Open("./main.go")

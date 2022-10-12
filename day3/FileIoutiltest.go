@@ -6,6 +6,10 @@ import (
 	"os"
 )
 
+/*
+*
+文件工具类
+*/
 func main() {
 	//使用ioutil打开文件
 	content, err := ioutil.ReadFile("./main.go")
