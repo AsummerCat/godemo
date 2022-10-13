@@ -15,7 +15,7 @@ func main() {
 	//表示转换为10进制 64位
 	parseInt, err := strconv.ParseInt(str, 10, 64)
 	if err != nil {
-		fmt.Println("转换失败:", err)
+		fmt.Println("字符串转换为数字类型转换失败:", err)
 	}
 	fmt.Println(parseInt)
 
@@ -23,4 +23,15 @@ func main() {
 	i := int32(97)
 	sprintf := fmt.Sprintf("%d", i)
 	fmt.Println(sprintf)
+
+	//String转换为int
+	atoi, err := strconv.Atoi("100")
+	if err != nil {
+		fmt.Println("String转换为int转换失败:", err)
+	}
+	fmt.Println(atoi)
+
+	//int转换为String
+	itoa := strconv.Itoa(1001)
+	fmt.Println(itoa)
 }
