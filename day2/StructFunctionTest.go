@@ -15,5 +15,7 @@ func (p person) getName() {
 }
 func main() {
 	p1 := person{Name: "小明", age: 11}
+	p2 := person{age: 11, Name: "小明"}
 	p1.getName()
+	p2.getName()
 }
