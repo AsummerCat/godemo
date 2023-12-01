@@ -25,8 +25,9 @@ func main() {
 		fmt.Println("序列化失败:%s", err)
 	}
 
+	//转换为字符串
 	str := string(marshal)
-	fmt.Println(string(marshal))
+	fmt.Println(str)
 
 	//反序列化
 	var p2 Person

@@ -3,7 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	var countryCapitalMap map[string]string /*创建集合 */
+	//创建map指针
+	var countryCapitalMap map[string]string
+	//初始化map 内存分配 ps: 注意map channel都需要初始化
 	countryCapitalMap = make(map[string]string)
 	/* map插入key - value对,各个国家对应的首都 */
 	countryCapitalMap["France"] = "巴黎"
