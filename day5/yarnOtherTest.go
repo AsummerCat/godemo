@@ -2,33 +2,65 @@ package main
 
 import (
 	"fmt"
-	"github.com/go-ini/ini"
+	"github.com/spf13/viper"
 )
 
-// 1.读取yarn配置
+// 1.使用viper包 来读取 json ,yaml,properties等配置文件
+//go get github.com/spf13/viper
+
 type YarnMysqlConfig struct {
-	Address  string
-	Port     int
-	Username string
-	Password string
+	Url  string `mapstructure:"url"`
+	Port int    `mapstructure:"port"`
+}
+
+type YarnRedisConfig struct {
+	Host string `mapstructure:"host"`
+	Port int    `mapstructure:"port"`
+}
+type ServiceConfig struct {
+	Mysql YarnMysqlConfig `mapstructure:"mysql"`
+	Redis YarnRedisConfig `mapstructure:"redis"`
 }
 
 func main() {
-	var mysqlConfig IniMysqlConfig
-
-	conf, err := ini.Load(&mysqlConfig, "D:\\godemo\\goBase\\day5\\myconfig.ini")
-
+	//设置配置文件的名称
+	viper.SetConfigName("myconfig")
+	//设置配置文件的类型
+	viper.SetConfigType("yaml")
+	//添加配置文件的理解,指定位置读取
+	viper.AddConfigPath("./day5")
+	//寻找配置文件并且读取
+	err := viper.ReadInConfig()
 	if err != nil {
-		fmt.Println("读取配置文件失败：", err)
+		println("读取配置文件失败", err)
 		return
 	}
-	if err := conf.Section("mysql").MapTo(&mysqlConfig); err != nil {
-		fmt.Println(err.Error())
-		return
+
+	//这里是直接读取的
+	fmt.Println(viper.Get("mysql"))
+	fmt.Println(viper.Get("mysql.url"))
+	fmt.Println(viper.Get("mysql.port"))
+	fmt.Println(viper.Get("redis"))
+	fmt.Println(viper.Get("redis.host"))
+	fmt.Println(viper.Get("redis.port"))
+
+	//序列化
+	var config ServiceConfig
+	viper.Unmarshal(&config)
+	fmt.Println(config)
+
+	//new一个viper对象
+	v := viper.New()
+	//获取配置文件
+	v.SetConfigFile("./day5/myconfig.yml")
+
+	//将配置读入viper对象中
+	if err := v.ReadInConfig(); err != nil {
+		println(err)
 	}
-	fmt.Println("读取配置文件成功：")
-	fmt.Println("主机：", mysqlConfig.Address)
-	fmt.Println("端口：", mysqlConfig.Port)
-	fmt.Println("用户名：", mysqlConfig.Username)
-	fmt.Println("密码：", mysqlConfig.Password)
+	//这里可以转换为实体对象映射
+	ServiceConfig := ServiceConfig{}
+	v.Unmarshal(&ServiceConfig)
+	fmt.Println(ServiceConfig)
+
 }
