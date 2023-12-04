@@ -10,7 +10,6 @@ import (
 */
 func main() {
 	str := "10000"
-
 	//字符串转换为数字类型
 	//表示转换为10进制 64位
 	parseInt, err := strconv.ParseInt(str, 10, 64)
