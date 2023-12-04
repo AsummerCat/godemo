@@ -42,6 +42,7 @@ func subDemo() {
 	now := time.Now() //获取当前时间
 	addTime := addDemo()
 	sub := addTime.Sub(now)
+	fmt.Println(sub.Hours())
 	fmt.Println(sub)
 }
 
