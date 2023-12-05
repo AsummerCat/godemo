@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/jmoiron/sqlx"
+	"github.com/jmoiron/sqlx"
 )
 
 /*
@@ -12,10 +12,10 @@ import (
 var db *sqlx.DB
 
 func main() {
-	initdb2()
+	sqlxInitDb()
 }
 
-func initDB2() (err error) {
+func sqlxInitDb() (err error) {
 	dsn := "user:password@tcp(127.0.0.1:3306)/sql_test?charset=utf8mb4&parseTime=True"
 	// 也可以使用MustConnect连接不成功就panic
 	db, err = sqlx.Open("mysql", dsn)
@@ -31,13 +31,13 @@ func initDB2() (err error) {
 // 查询单条数据示例
 func queryRowDemo() {
 	sqlStr := "select id, name, age from user where id=?"
-	var u user
+	var u sqlxUser
 	err := db.Get(&u, sqlStr, 1)
 	if err != nil {
 		fmt.Printf("get failed, err:%v\n", err)
 		return
 	}
-	fmt.Printf("id:%d name:%s age:%d\n", u.ID, u.Name, u.Age)
+	fmt.Printf("id:%d name:%s age:%d\n", u.Id, u.Name, u.Age)
 }
 
 // 查询多条数据示例
@@ -98,4 +98,13 @@ func deleteRowDemo() {
 		return
 	}
 	fmt.Printf("delete success, affected rows:%d\n", n)
+}
+
+/*
+定义存储结构体
+*/
+type sqlxUser struct {
+	Id   int
+	Name string
+	Age  string
 }

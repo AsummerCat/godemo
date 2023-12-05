@@ -15,6 +15,9 @@ func main() {
 	client, err := net.Dial("tcp", "127.0.0.1:20000")
 	if err != nil {
 		fmt.Println("连接127.0.0.1:20000失败", err)
+	} else {
+		fmt.Println("连接127.0.0.1:20000成功,连接方式:", client.RemoteAddr().Network())
+		fmt.Println("连接127.0.0.1:20000成功,ip地址:", client.RemoteAddr().String())
 	}
 
 	for {

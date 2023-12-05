@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	bb := initBb1()
+	bb := txInitBb()
 	//执行事务
 	transactionDemo(bb)
 }
@@ -14,7 +14,7 @@ func main() {
 /*
 初始化数据库
 */
-func initBb1() (db *sql.DB) {
+func txInitBb() (db *sql.DB) {
 	dsn := "root:password@tcp(127.0.0.1:3306)/cygn?charset=utf8"
 	//打开数据库连接
 	db, err := sql.Open("mysql", dsn)

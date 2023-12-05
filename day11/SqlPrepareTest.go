@@ -9,7 +9,7 @@ import (
 /*
 初始化数据库
 */
-func initBb1() (db *sql.DB) {
+func prepareInitBb() (db *sql.DB) {
 	dsn := "root:password@tcp(127.0.0.1:3306)/cygn?charset=utf8"
 	//打开数据库连接
 	db, err := sql.Open("mysql", dsn)
@@ -32,7 +32,7 @@ func initBb1() (db *sql.DB) {
 /*
 查询单行
 */
-func queryRowDemo(db *sql.DB) {
+func prepareQueryRowDemo(db *sql.DB) {
 	var u user
 	// 非常重要：确保QueryRow之后调用Scan方法，否则持有的数据库链接不会被释放
 	err := db.QueryRow("select ACCOUNT_ID,DISPLAY_NAME from c_account limit 1").Scan(&u.accountId, &u.displayName)
@@ -109,7 +109,7 @@ func main() {
 	       Oracle	     :name
 	*/
 
-	bb := initBb()
+	bb := prepareInitBb()
 	//预处理查询示例
 	prepareQueryDemo(bb)
 	//预处理插入示例

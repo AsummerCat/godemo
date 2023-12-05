@@ -6,14 +6,14 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var db *sql.DB
+var baseDb *sql.DB
 
 /************数据库的基本使用*********/
 
 /*
 初始化数据库
 */
-func initBb() (db *sql.DB) {
+func baseInitBb() (db *sql.DB) {
 	dsn := "root:password@tcp(127.0.0.1:3306)/cygn?charset=utf8"
 	//打开数据库连接
 	db, err := sql.Open("mysql", dsn)
@@ -36,7 +36,7 @@ func initBb() (db *sql.DB) {
 /*
 查询单行
 */
-func queryRowDemo(db *sql.DB) {
+func baseQueryRowDemo(db *sql.DB) {
 	var u user
 	// 非常重要：确保QueryRow之后调用Scan方法，否则持有的数据库链接不会被释放
 	err := db.QueryRow("select ACCOUNT_ID,DISPLAY_NAME from c_account limit 1").Scan(&u.accountId, &u.displayName)
@@ -50,7 +50,7 @@ func queryRowDemo(db *sql.DB) {
 /*
 查询多行
 */
-func queryMultiRowDemo(db *sql.DB) {
+func baseQueryMultiRowDemo(db *sql.DB) {
 	// 非常重要：确保QueryRow之后调用Scan方法，否则持有的数据库链接不会被释放
 	rows, err := db.Query("select ACCOUNT_ID,DISPLAY_NAME from c_account limit 2")
 	if err != nil {
@@ -74,7 +74,7 @@ func queryMultiRowDemo(db *sql.DB) {
 /*
 插入数据
 */
-func insertRowDemo(db *sql.DB) {
+func baseInsertRowDemo(db *sql.DB) {
 	sqlStr := "insert into user(name, age) values (?,?)"
 	ret, err := db.Exec(sqlStr, "王五", 38)
 	if err != nil {
@@ -92,7 +92,7 @@ func insertRowDemo(db *sql.DB) {
 /*
 更新数据
 */
-func updateRowDemo(db *sql.DB) {
+func baseUpdateRowDemo(db *sql.DB) {
 	sqlStr := "update user set age=? where id = ?"
 	ret, err := db.Exec(sqlStr, 39, 3)
 	if err != nil {
@@ -110,7 +110,7 @@ func updateRowDemo(db *sql.DB) {
 /*
 删除数据
 */
-func deleteRowDemo(db *sql.DB) {
+func baseDeleteRowDemo(db *sql.DB) {
 	sqlStr := "delete from user where id = ?"
 	ret, err := db.Exec(sqlStr, 3)
 	if err != nil {
@@ -134,17 +134,17 @@ type user struct {
 }
 
 func main() {
-	bb := initBb()
+	bb := baseInitBb()
 	//单行查询
-	queryRowDemo(bb)
+	baseQueryRowDemo(bb)
 	//多行查询
-	queryMultiRowDemo(bb)
+	baseQueryMultiRowDemo(bb)
 	//插入数据
-	insertRowDemo(bb)
+	baseInsertRowDemo(bb)
 	//更新数据 返回影响行数
-	updateRowDemo(bb)
+	baseUpdateRowDemo(bb)
 	//删除数据 返回影响行数
-	deleteRowDemo(bb)
+	baseDeleteRowDemo(bb)
 	//如果数据库连接打开记得关闭
 	defer bb.Close()
 }

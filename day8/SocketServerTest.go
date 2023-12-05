@@ -23,6 +23,9 @@ func main() {
 		if err != nil {
 			fmt.Println("连接失败", err)
 			continue
+		} else {
+			fmt.Println("连接成功,连接方式TCP UDP:", conn.RemoteAddr().Network())
+			fmt.Println("连接成功,ip地址:", conn.RemoteAddr().String())
 		}
 		//处理连接的通信
 		go process(conn)
