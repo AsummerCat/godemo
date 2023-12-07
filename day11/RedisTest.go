@@ -57,14 +57,11 @@ func V8Example() {
 	}
 }
 
-func init() {
+func main() {
 	err := initClient()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	V8Example()
-}
-func main() {
-
 }
