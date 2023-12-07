@@ -3,9 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/go-redis/redis/v8"
 	"time"
-
-	"github.com/go-redis/redis/v8" // 注意导入的是新版本
 )
 
 var (
@@ -36,12 +35,14 @@ func V8Example() {
 
 	err := rdb.Set(ctx, "key", "value", 0).Err()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 
 	val, err := rdb.Get(ctx, "key").Result()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println("key", val)
 
@@ -49,10 +50,21 @@ func V8Example() {
 	if err == redis.Nil {
 		fmt.Println("key2 does not exist")
 	} else if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	} else {
 		fmt.Println("key2", val2)
 	}
-	// Output: key value
-	// key2 does not exist
+}
+
+func init() {
+	err := initClient()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	V8Example()
+}
+func main() {
+
 }
